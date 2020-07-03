@@ -1,3 +1,6 @@
+import collections
+from datetime import timedelta,datetime
+
 class InfoService:
     """서비스"""
 
@@ -57,4 +60,30 @@ class InfoService:
         return lateInfo
 
     def searchAbsent(self):
-        start_date = '2020-07-01'
+        startDate = datetime.strptime('2020-07-01', '%Y-%m-%d')  # 시작일
+        endDate = datetime.today()  # 오늘
+        allInfo = self.dao.selectById(self.id)  # 해당 id 모든 입실시간 정보
+        attendDate = collections.deque()  # date 타입의 입실시간 정보
+        absentInfo = []  # 결석한 날짜 정보
+        flag = True
+        # str 타입의 입실시간 정보 datetime 타입으로 변환
+        for in_date in allInfo:
+            d = datetime.strptime(in_date.split(' ')[0], '%Y-%m-%d')
+            attendDate.append(d)  # datetime 타입으로 append
+        # 결석한 날짜 찾기
+        while flag:
+            # startDate와 endDate가 일치하면 반복문 종료
+            if str(startDate).split(' ')[0] == str(endDate).split(' ')[0]:
+                flag = False
+                break
+            # attendDate의 요소가 존재할 경우
+            if len(attendDate) > 0 and startDate < attendDate[0]:
+                absentInfo.append(str(startDate).split(' ')[0])
+                startDate += timedelta(days=1)
+            elif len(attendDate) > 0 and startDate == attendDate[0]:
+                attendDate.pop(0)
+            # attendDate의 요소가 존재하지 않을 경우
+            elif len(attendDate) == 0:
+                absentInfo.append(str(startDate).split(' ')[0])
+        print('absentInfo:', absentInfo)
+        return absentInfo
