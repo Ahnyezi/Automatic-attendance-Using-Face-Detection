@@ -118,6 +118,8 @@ def teacher_search(app, entry, service, event):
     menu_win.resizable(False, True)
     # 학생 리스트
     names = service.teacher_search(entry.get())
+    if names is None:
+        return
     lbl_names = []
     for i in range(len(names)):
         lbl_names.append(tk.Label(menu_win, text=names[i], font=60))

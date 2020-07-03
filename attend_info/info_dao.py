@@ -1,5 +1,5 @@
 import cx_Oracle as db
-import attend_info.info as info
+import info as info
 
 
 class InfoDao:
