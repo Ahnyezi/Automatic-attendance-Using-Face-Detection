@@ -32,7 +32,7 @@ def login(app, service, event):
         print('선생님')
         teacherWindow(app, service)
     elif flag.type == 'student':
-        studentWindow(app, flag)
+        studentWindow(app, flag, service)
     # 로그인 버튼, 입력칸 비활성화 / 로그아웃 버튼 활성화
     app.btn_login['state'] = 'disabled'
     app.btn_login.bind('<ButtonRelease-1>', nothing)
@@ -50,8 +50,9 @@ def logout(app, service, event):
     global menu_win
     new_win.destroy()
     new_win = None
-    menu_win.destroy()
-    menu_win = None
+    if menu_win is not None:
+        menu_win.destroy()
+        menu_win = None
     # 이름/번호 입력칸 활성화 / 기존 로그인 정보 전부 지우기
     app.ntr_name['state'] = 'normal'
     app.ntr_phone['state'] = 'normal'
@@ -126,7 +127,7 @@ def teacher_search(app, entry, service, event):
         lbl_names[i].pack(anchor='w')
 
 
-def studentWindow(app, student_info):
+def studentWindow(app, student_info, service):
     """수강생이 로그인한 경우 새 창"""
     global new_win
     new_win = tk.Toplevel(app)
@@ -150,7 +151,36 @@ def studentWindow(app, student_info):
     # 전체 출결 확인(1.파이그래프 띄우기, 2.총 결석일수 볼 수 있게, 3.클릭 시 시간순정보, 4.벌금계산)
     btn_check = tk.Button(new_win, font=60, text='내 출석부 보기')
     btn_check.pack(fill='x')
-    # btn_check.bind('<Button-1>', partial(student_check, app, service))
+    btn_check.bind('<Button-1>', partial(student_check, new_win, service))
+
+
+def student_check(app, service, event):
+    global menu_win
+    menu_win = tk.Toplevel(app)
+    menu_win.title('My Attendance List')
+    menu_win.geometry('300x300+100+100')
+    menu_win.resizable(False, True)
+    attendInfo = service.searchAttend()
+    # print(attendInfo)
+    lateInfo = service.searchLate()
+    # print(lateInfo)
+    absentInfo = service.searchAbsent()
+    print(absentInfo)
+    if attendInfo:
+        lbl_at = []
+        for i in range(len(attendInfo[0])):
+            lbl_at.append(tk.Label(menu_win, text=attendInfo[0][i], font=60, fg='black'))
+            lbl_at[i].pack()
+    if lateInfo:
+        lbl_lt = []
+        for i in range(len(lateInfo[0])):
+            lbl_lt.append(tk.Label(menu_win, text=lateInfo[0][i], font=60, fg='blue'))
+            lbl_lt[i].pack()
+    if absentInfo:
+        lbl_ab = []
+        for i in range(len(absentInfo)):
+            lbl_ab.append(tk.Label(menu_win, text=absentInfo[i], font=60, fg='red'))
+            lbl_ab[i].pack()
 
 
 def make(app, service=None):

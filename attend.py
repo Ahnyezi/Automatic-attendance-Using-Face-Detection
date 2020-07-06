@@ -10,9 +10,9 @@ from datetime import datetime
 class FaceDetect:
     def __init__(self):
         self.font = cv2.FONT_HERSHEY_SIMPLEX
-        self.trained_data = 'trainer.yml'
+        self.trained_data = 'classifier/trainer.yml'
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
-        self.classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        self.classifier = cv2.CascadeClassifier('classifier/haarcascade_frontalface_default.xml')
 
 
         # self.RecordForTrainingData()
