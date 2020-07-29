@@ -50,7 +50,7 @@ class FaceDetect:
 
     def RecordForTrainingData(self):    # training data를 위해 영상 촬영
         n = input('입력 : ')
-        os.mkdir('dataset/' + n)
+        os.mkdir('./dataset/' + n)
         cap = cv2.VideoCapture(0)
         train_switch = False
         i = 0
@@ -65,7 +65,7 @@ class FaceDetect:
                 cv2.putText(frame, "recording", (50, 50), self.font, 1, (0, 0, 255), 2)
                 cv2.circle(frame, (300, 200), 150, (0, 255, 0), 3)
                 cv2.imshow('frame', frame)
-                cv2.imwrite('dataset/'+n+'/'+n+str(i)+'.jpg', frame2)
+                cv2.imwrite('annotation/'+n+'/'+n+str(i)+'.jpg', frame2)
                 i += 1
                 if cv2.waitKey(1) & 0xFF == ord('c') or i>500:
                     break

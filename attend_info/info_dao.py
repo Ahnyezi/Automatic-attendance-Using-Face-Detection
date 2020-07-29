@@ -35,15 +35,18 @@ class InfoDao:
         names = []
         for name in cursor:
             names.append(list(name))  # 수정
-        # 추가시작
-        if not names: return
-        sql = 'select * from attend where in_date like :1 order by attend_id'
-        cursor.execute(sql, d)
-        row = cursor.fetchall()
-        for i in range(len(names)):
-            names[i].append(row[i][1])
-        names.sort(key=lambda x: x[1])  # 출석한 시간 순서대로 정렬
-        # 추가끝
+        # # 추가시작
+        # if not names: return
+        # sql = 'select * from attend where in_date like :1 order by attend_id'
+        # cursor.execute(sql, d)
+        # row = cursor.fetchall()
+        # print(row)
+        # print(len(row))
+        # print(names)
+        # for i in range(len(row)):
+        #     names[i].append(row[i][1])
+        # names.sort(key=lambda x: x[1])  # 출석한 시간 순서대로 정렬
+        # # 추가끝
         conn.close()
         return names
 
