@@ -20,15 +20,18 @@
 		- flag_switch() : 얼굴인식이 되어 출석 완료된 경우를 사용자에게 2초가량 표시할 수 있도록 해주는 thread 함수 생성.
 		- upload() : Oracle Database에 접근하여 ATTEND 테이블에 얼굴이 인식된 학생의 이름과 오늘 날짜를 추가하는 함수.<br>
 	<br>
-	<image src="https://user-images.githubusercontent.com/34594339/88763234-c271b280-d1ad-11ea-93b4-623f38f4eca0.png" width="70%">
-
+	<p align='center'>
+	<image src="https://user-images.githubusercontent.com/34594339/96682191-6f298d80-13b3-11eb-8dd6-cf415b4bb490.png" width="70%">
+	</p>
 <br>	
 
 ### 3) 출석 확인 프로그램
 
 - UI 구성
-
-	<image src="https://user-images.githubusercontent.com/34594339/92508371-80736c00-f243-11ea-84d6-027cf718310d.png" width="70%">
+	
+	<p align='center'>
+	<image src="https://user-images.githubusercontent.com/34594339/96682208-73ee4180-13b3-11eb-8716-12929dbadb77.png" width="70%">
+	</p>
 
 	1) 이름과 휴대폰번호를 통해 접속(상단의 창)
 	2) 접속한 학생의 오늘 출결 여부 확인(왼쪽 하단)
